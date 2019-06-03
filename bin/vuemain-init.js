@@ -27,7 +27,6 @@ if (list.length) {
   let length = list.filter(name => {
     const fileName = path.resolve(process.cwd(), path.join('.', name))
     const isDir = fs.statSync(fileName).isDirectory()
-    console.log(name.indexOf(projectName))
     return name.indexOf(projectName) !== -1 && isDir
   }).length
   if (Boolean(length)) {
