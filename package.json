@@ -1,6 +1,6 @@
 {
-  "name": "vue-clis",
-  "version": "1.0.2",
+  "name": "@vue/cli",
+  "version": "1.0.4",
   "description": "脚手架脚本",
   "author": "ngaiwe",
   "private": false,
