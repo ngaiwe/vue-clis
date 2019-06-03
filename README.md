@@ -9,11 +9,11 @@ npm i vue-clis -g
 ## 使用
 
 ```
-@vue/cli init <project-name>
+vuecli init <project-name>
 ```
 
 ### Example
 
 ```
-@vue/cli init myProject
+vuecli init myProject
 ```

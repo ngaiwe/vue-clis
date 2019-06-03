@@ -1,6 +1,6 @@
 {
-  "name": "vuecli",
-  "version": "1.0.8",
+  "name": "vue-clis",
+  "version": "1.0.9",
   "description": "脚手架脚本",
   "author": "ngaiwe",
   "private": false,
@@ -19,5 +19,9 @@
     "log-symbols": "^3.0.0",
     "metalsmith": "^2.3.0",
     "ora": "^3.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ngaiwe/vue-clis.git"
   }
 }
