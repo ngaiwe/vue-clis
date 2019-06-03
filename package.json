@@ -1,11 +1,11 @@
 {
   "name": "vue-clis",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "脚手架脚本",
   "author": "ngaiwe",
   "private": false,
   "bin": {
-    "vue-clis": "./bin/vuemain.js"
+    "vue-clis": "./bin/vue-clis.js"
   },
   "license": "ISC",
   "dependencies": {
