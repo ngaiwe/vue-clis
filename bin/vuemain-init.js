@@ -26,21 +26,17 @@ let rootName = path.basename(process.cwd())
 if (list.length) {
   let length = list.filter(name => {
     const fileName = path.resolve(process.cwd(), path.join('.', name))
-    const isDir = fs.stat(fileName).isDirectory()
+    const isDir = fs.statSync(fileName).isDirectory()
+    console.log(name.indexOf(projectName))
     return name.indexOf(projectName) !== -1 && isDir
-  })
+  }).length
   if (Boolean(length)) {
     console.log(`项目${projectName}已经存在`)
   } else {
     next = Promise.resolve(projectName)
   }
 } else if (rootName === projectName) {
-  next = inquirer.prompt([{
-    name: 'rootName',
-    message: '当前目录为空，且目录名称和项目名称相同，是否直接在当前目录下创建新项目？',
-    type: 'confirm',
-    default: true
-  }]).then(answer => {
+  next = inquirer.isEmpty().then(answer => {
     return Promise.resolve(answer.rootName ? '.' : projectName)
   })
 } else {
@@ -61,7 +57,7 @@ function go() {
       downloadTemp: target
     }))
   }).then(context => {
-    return inquirer().then(answers => {
+    return inquirer.init().then(answers => {
       return {
         ...context,
         metadata: {
@@ -72,7 +68,11 @@ function go() {
       return Promise.reject(err)
     })
   }).then(context => {
-    let { metadata, projectRoot, downloadTemp } = context
+    let {
+      metadata,
+      projectRoot,
+      downloadTemp
+    } = context
     return generator(metadata, projectRoot, downloadTemp)
   }).then(context => {
     console.log('......')
