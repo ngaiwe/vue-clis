@@ -5,7 +5,7 @@
   "author": "ngaiwe",
   "private": false,
   "bin": {
-    "vue-clis": "./bin/vuemain.js"
+    "@vue/cli": "./bin/vuemain.js"
   },
   "license": "ISC",
   "dependencies": {
