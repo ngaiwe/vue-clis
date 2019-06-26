@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const program = require('commander')
 const path = require('path')
 const fs = require('fs')
+const program = require('commander')
 const glob = require('glob')
 const chalk = require('chalk')
 const logSymbols = require('log-symbols')
@@ -35,8 +35,8 @@ if (list.length) {
     next = Promise.resolve(projectName)
   }
 } else if (rootName === projectName) {
-  next = inquirer.isEmpty().then(answer => {
-    return Promise.resolve(answer.rootName ? '.' : projectName)
+  next = inquirer.isEmpty().then(answers => {
+    return Promise.resolve(answers.rootName ? '.' : projectName)
   })
 } else {
   next = Promise.resolve(projectName)
@@ -44,28 +44,39 @@ if (list.length) {
 
 next && go()
 
-function go() {
-  next.then(projectRoot => {
+// 模板下载
+function down () {
+  return next.then(async projectRoot => {
     if (projectRoot == '.') {
       void null
     } else {
       fs.mkdirSync(projectRoot)
     }
-    return download(projectRoot).then(target => ({
+    let answers = await inquirer.template()
+    return download(answers.template, projectRoot).then(target => ({
       projectRoot,
       downloadTemp: target
     }))
-  }).then(context => {
-    return inquirer.init().then(answers => {
-      return {
-        ...context,
-        metadata: {
-          ...answers
-        }
+  })
+}
+
+// 模板替换内容
+function inqGen (context) {
+  return inquirer.init().then(answers => {
+    return {
+      ...context,
+      metadata: {
+        ...answers
       }
-    }).catch(err => {
-      return Promise.reject(err)
-    })
+    }
+  }).catch(err => {
+    return Promise.reject(err)
+  })
+}
+
+function go() {
+  down().then(context => {
+    return inqGen(context)
   }).then(context => {
     let {
       metadata,
